@@ -43,8 +43,7 @@ class NetworkApiServices extends BaseApiServices {
         throw InvalidUrlException("Inavalid URL");
       default:
         throw FetchdataException(
-          "Error While Communicating With Server" +
-              response.statusCode.toString(),
+          "Error While Communicating With Server ${response.statusCode.toString()}" 
         );
     }
   }
