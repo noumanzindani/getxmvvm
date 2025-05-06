@@ -19,3 +19,11 @@ class RequestTimeOut extends AppException {
 class ServerException extends AppException {
   ServerException(String massage) : super(massage, "Internal Server Error");
 }
+
+class InvalidUrlException extends AppException {
+  InvalidUrlException(String massage) : super(massage, "Invsalid URL Error");
+}
+
+class FetchdataException extends AppException {
+  FetchdataException(String massage) : super(massage,"");
+}
