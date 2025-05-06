@@ -36,6 +36,8 @@ class _LoginViewState extends State<LoginView> {
                 validator: (value) {
                   if (value!.isEmpty) {
                     return Utils.toastMassage("email_required".tr);
+                  } else {
+                    return null;
                   }
                 },
                 onFieldSubmitted: (value) {
@@ -66,6 +68,7 @@ class _LoginViewState extends State<LoginView> {
                   } else if (value.length < 6) {
                     return Utils.toastMassage("password_lenght".tr);
                   }
+                  return null;
                 },
                 obscureText: true,
                 obscuringCharacter: "*",
@@ -80,19 +83,21 @@ class _LoginViewState extends State<LoginView> {
               SizedBox(height: height * 0.025),
 
               // login button
-             Obx(()=> RoundButton(
-                backgroundcolor: AppColors.primaryColor,
-                onpress: () {
-                  if (_formkey.currentState!.validate()) {
-                    loginVM.loginApi();
-                  }
-                },
-                textcolor: AppColors.secconderyColor,
-                isloading: loginVM.loading.value,
-                title: "login".tr,
-                height: height * 0.05,
-                width: width * 0.8,
-              ),)
+              Obx(
+                () => RoundButton(
+                  backgroundcolor: AppColors.primaryColor,
+                  onpress: () {
+                    if (_formkey.currentState!.validate()) {
+                      loginVM.loginApi();
+                    }
+                  },
+                  textcolor: AppColors.secconderyColor,
+                  isloading: loginVM.loading.value,
+                  title: "login".tr,
+                  height: height * 0.05,
+                  width: width * 0.8,
+                ),
+              ),
             ],
           ),
         ),
