@@ -49,7 +49,7 @@ class NetworkApiServices extends BaseApiServices {
   }
 
   @override
-  Future getPostApiResponse(String url, dynamic data) async {
+  Future getPostApiResponse(String url, dynamic data,Map<String,String> header) async {
     if (kDebugMode) {
       print(url);
     }
@@ -60,10 +60,7 @@ class NetworkApiServices extends BaseApiServices {
           .post(
             Uri.parse(url),
             body: jsonEncode(data),
-            headers: {
-              "Content_Type": "application/json",
-              "Accept": "application/json",
-            },
+            headers:header
           )
           .timeout(const Duration(seconds: 10));
       responseJson = retrunResponse(response);

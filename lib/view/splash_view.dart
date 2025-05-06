@@ -1,24 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_utils/get_utils.dart';
-import 'package:getxmvvm/resources/assets/assets_images.dart';
-import 'package:getxmvvm/utils/utils.dart';
+import 'package:getxmvvm/viewmodel/services/splash_services.dart';
 
-class SplashView extends StatelessWidget {
+class SplashView extends StatefulWidget {
   const SplashView({super.key});
+
+  @override
+  State<SplashView> createState() => _SplashViewState();
+}
+
+class _SplashViewState extends State<SplashView> {
+  SplashServices splashServices = SplashServices();
+
+  @override
+  void initState() {
+    super.initState();
+    splashServices.isLogin(context);
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("title".tr),),
-      body:
-      Image(image: AssetImage(AssetsImages.logo),fit: BoxFit.cover,) 
-      // Center(
-      //   child: FloatingActionButton(
-      //     onPressed: () {
-      //       Utils.toastMassageCenter("NOUMAN ZINDANI");
-      //     },
-      //   ),
-      // ),
+      appBar: AppBar(title: Text("title".tr)),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [Center(child: Text("Welcome_Massage".tr))],
+      ),
     );
   }
 }
