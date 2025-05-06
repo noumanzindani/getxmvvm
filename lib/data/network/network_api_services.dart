@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:getxmvvm/data/app_exception.dart';
 import 'package:getxmvvm/data/network/base_api_services.dart';
 import 'package:http/http.dart' as http;
@@ -14,6 +15,10 @@ class NetworkApiServices extends BaseApiServices {
 
   @override
   Future getGetApiResponse(String url) async {
+    if (kDebugMode) {
+      print(url);
+    }
+
     dynamic responseJson;
     try {
       final response = await http
@@ -36,42 +41,31 @@ class NetworkApiServices extends BaseApiServices {
         return responseJson;
       case 400:
         throw InvalidUrlException("Inavalid URL");
-        default:
-        throw FetchdataException("Error While Communicating With Server"+response.statusCode.toString()); 
+      default:
+        throw FetchdataException(
+          "Error While Communicating With Server" +
+              response.statusCode.toString(),
+        );
     }
   }
 
-//   @override
-//  Future getPostApiResponse(dynamic data ,String url) async {
-//     dynamic responseJson;
-//     try {
-//       final response = await http
-//           .get(Uri.parse(url))
-//           .timeout(const Duration(seconds: 10));
-//       responseJson = retrunResponse(response);
-//     } on SocketException {
-//       throw InternetException("Please check your internet connection.");
-//     } on TimeoutException {
-//       throw RequestTimeOut("Request time out please try again.");
-//     }
+  @override
+  Future getPostApiResponse(String url, dynamic data) async {
+    if (kDebugMode) {
+      print(url);
+    }
 
-//     return responseJson;
-//   }
-  @override
-  Future getPutApiResponse(
-    String url,
-    String body, {
-    Map<String, String>? headers,
-  }) {
-    throw UnimplementedError();
-  }
-  
-  @override
-  Future getPostApiResponse(String url, dynamic data)async {
-      dynamic responseJson;
+    dynamic responseJson;
     try {
       final response = await http
-          .get(Uri.parse(url))
+          .post(
+            Uri.parse(url),
+            body: jsonEncode(data),
+            headers: {
+              "Content_Type": "application/json",
+              "Accept": "application/json",
+            },
+          )
           .timeout(const Duration(seconds: 10));
       responseJson = retrunResponse(response);
     } on SocketException {
@@ -81,5 +75,14 @@ class NetworkApiServices extends BaseApiServices {
     }
 
     return responseJson;
+  }
+
+  @override
+  Future getPutApiResponse(
+    String url,
+    String body, {
+    Map<String, String>? headers,
+  }) {
+    throw UnimplementedError();
   }
 }
