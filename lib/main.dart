@@ -14,7 +14,9 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       translations:Language(),
-      locale: Locale('ur','PK'),
+      ///urdu language
+      // locale: Locale('ur','PK'),
+      locale: Locale('en','US'),
       fallbackLocale: Locale('en','US'),
       home: SplashView(),
       getPages: 
